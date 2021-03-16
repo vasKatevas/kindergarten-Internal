@@ -1,0 +1,138 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
+<title>Παιδικός Σταθμός</title>
+</head>
+<body>
+
+<nav><span class="header">Παιδικός Σταθμός</span><span th:text="'Hello, ' + ${username} + '!'"></span><a th:href="logout">Αποσύνδεση</a></nav>
+
+
+		 	<div class="main">
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<script type="text/javascript" src="/javascript/admin.js" ></script>
+		<h1>Συνδεθήκατε ως ADMIN</h1>
+		<h3>Register</h3>
+		<form id="registerForm" action="register" method="post"  onsubmit="return isNumber()">
+			<label for="username">Username:</label><br> 
+			<input name="username" id="username" type="text" required><br>
+			<label for="password">Κωδικός:</label><br> 
+			<input name="password" id="password" type="password" required><br>
+			<label for="role">Role(admin, teacher, manager):</label><br>
+			<select id="role" name="role" type="text" onchange="yesnoCheck(this);" required>
+			<option value="0">Select role:</option>
+			<option value="admin">admin</option>
+			<option value="teacher">teacher</option>
+			<option value="manager">manager</option>
+			</select>
+			<br>
+		</form>
+		<h3>Users</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Role</th>
+				</tr>
+			</thead>
+			<tbody id="Users">
+
+			</tbody>
+		</table>
+		<h3>Delete</h3>
+		<form   action="delete" method="post">
+			<label for="deleteUsername">Username:</label><br> 
+			<input
+				type="text" id="deleteUsername" name="deleteUsername"><br>
+			<input type="submit" value="Delete"><br>
+		</form>
+		<h3>Update</h3>
+		<form action="update" method="post">
+		     <label for="uusername">Username:</label><br>
+		     <input id="uusername" name="uusername" type="text" required><br>
+		     <label for="oldpassword">Old password:</label><br>
+		     <input id="oldpassword" name="oldpassword" type="password" required><br>
+		     <label for="newpassword">New password:</label><br>
+		     <input id="newpassword" name="newpassword" type="password" required><br>
+		     <input type="submit" value="Update">
+		</form>
+	</div>
+
+	<div sec:authorize="hasRole('MANAGER')">
+		<h1>Συνδεθήκατε ως Διευθυντής</h1>
+			<h3>Τμήματα</h3>
+
+<!--			<ul th:each="tmimata: ${tmimata}" >
+				<li>Ονομα: <span th:text="${tmimata.username}"></span> Τμήμα: <span th:text="${tmimata.classN}"></span></li>
+			</ul>-->
+			<h3>Αιτησεις:</h3>
+			<div id="applications"></div>	
+		<h3>Register a child</h3>
+		<form action="registerChild" method="post" onsubmit="return isNumber()">
+          <label for="firstname">Firstname:</label><br>
+		  <input id="firstname" type="text" name="firstname"><br>
+		  <label for="lastname">Lastname:</label><br>
+		  <input id="lastname" type="text" name="lastname"><br>
+		  <label for="class">Class:</label><br>
+		  <input id="class" type="text" name="class"><br>
+		  <input type="submit" value="register">
+		</form>
+		
+		<h3>Delete Application</h3>
+		<select id="selectDelete" type="text">
+		</select>
+		<input type="button" id="deleteSubmit" value="Delete" onclick="deleteApplication();">
+		
+		<script type="text/javascript" src="${managerjs}" ></script>
+		<script>window.onload = getRequest();</script>
+		<script type="text/javascript">
+		
+		function isNumber(){
+			var x, text;
+
+			// Get the value of the input field with id="numb"
+			x = document.getElementById("class").value;
+
+			// If x is Not a Number or less than one or greater than 10
+			if (isNaN(x) || x < 1 || x > 99) {
+				text = "Input not valid";
+				alert(text);
+				return false;
+			} else {
+				return true;
+			}
+		}
+		</script>
+	</div>
+	
+	
+	
+	<div sec:authorize="hasRole('ROLE_TEACHER')">
+		<script type="text/javascript" src="/javascript/teacher.js" ></script>
+		<h1 th:text="'Συνδεθήκατε ως εκπαιδευτικός είστε στο τμήμα ' + ${teacher.classN}"/>
+		<script th:text="'window.onload = showChildren(' + ${teacher.classN} +')'" ></script>
+		<h3>Παιδιά</h3>
+	<!--		<ul th:each="child: ${child}">
+				<li>Ονομα: <span th:text="${child.firstname}"></span> Επώνυμο: <span th:text="${child.lastname}"></span> Τμήμα: <pspan th:text="${child.classN}"></pspan></li>
+			</ul>-->
+
+		<table>
+			<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+			</tr>
+			</thead>
+			<tbody id="children">
+
+			</tbody>
+		</table>
+	</div>
+	</div>
+</body>
+
+
+
+
+</html>
