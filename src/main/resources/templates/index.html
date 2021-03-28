@@ -60,14 +60,36 @@
 	</div>
 
 	<div sec:authorize="hasRole('MANAGER')">
-		<h1>Συνδεθήκατε ως Διευθυντής</h1>
-			<h3>Τμήματα</h3>
+		<script type="text/javascript" src="/javascript/manager.js" ></script>
 
-<!--			<ul th:each="tmimata: ${tmimata}" >
-				<li>Ονομα: <span th:text="${tmimata.username}"></span> Τμήμα: <span th:text="${tmimata.classN}"></span></li>
-			</ul>-->
-			<h3>Αιτησεις:</h3>
-			<div id="applications"></div>	
+		<h1>Logged in as a manager</h1>
+			<h3>Classes</h3>
+
+			<table>
+				<thead>
+					<th>Teacher Username</th>
+					<th>Class Number</th>
+				</thead>
+				<tbody id="teachers">
+
+				</tbody>
+			</table>
+			<h3>Applications</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>Parent First Name</th>
+				<th>Parent Last Name</th>
+				<th>Income</th>
+				<th>Child First Name</th>
+				<th>Child Last Name</th>
+				<th>Age</th>
+			</tr>
+			</thead>
+			<tbody id="applications">
+
+			</tbody>
+		</table>
 		<h3>Register a child</h3>
 		<form action="registerChild" method="post" onsubmit="return isNumber()">
           <label for="firstname">Firstname:</label><br>
@@ -84,7 +106,6 @@
 		</select>
 		<input type="button" id="deleteSubmit" value="Delete" onclick="deleteApplication();">
 		
-		<script type="text/javascript" src="${managerjs}" ></script>
 		<script>window.onload = getRequest();</script>
 		<script type="text/javascript">
 		
@@ -112,7 +133,7 @@
 		<script type="text/javascript" src="/javascript/teacher.js" ></script>
 		<h1 th:text="'Συνδεθήκατε ως εκπαιδευτικός είστε στο τμήμα ' + ${teacher.classN}"/>
 		<script th:text="'window.onload = showChildren(' + ${teacher.classN} +')'" ></script>
-		<h3>Παιδιά</h3>
+		<h3>Children</h3>
 	<!--		<ul th:each="child: ${child}">
 				<li>Ονομα: <span th:text="${child.firstname}"></span> Επώνυμο: <span th:text="${child.lastname}"></span> Τμήμα: <pspan th:text="${child.classN}"></pspan></li>
 			</ul>-->

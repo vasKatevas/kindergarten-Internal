@@ -1,5 +1,6 @@
 package gr.hua.dit.it21840.Internalsystem;
 
+import gr.hua.dit.it21840.Internalsystem.entity.Application;
 import gr.hua.dit.it21840.Internalsystem.entity.Authorities;
 import gr.hua.dit.it21840.Internalsystem.entity.Teacher;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -14,5 +15,9 @@ public class MVCConfig implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
         config.exposeIdsFor(Authorities.class);
         config.exposeIdsFor(Teacher.class);
+        config.exposeIdsFor(Application.class);
     }
+
+
+
 }

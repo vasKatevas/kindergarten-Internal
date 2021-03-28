@@ -24,7 +24,6 @@ function showChildren(classN) {
                     newRow.appendChild(rowElementLastName)
                     tableObj.appendChild(newRow);
 
-                    console.log('-------------------');
                 });
             }
         }

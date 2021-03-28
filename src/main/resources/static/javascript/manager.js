@@ -1,100 +1,135 @@
-var result;
+let result;
 function getRequest(){
-    var data = "";
+    let data = "";
 
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    //          "id": 1,
-    //          "parent_first_name": "test",
-    //          "parent_last_name": "test",
-    //          "income": 1234,
-    //          "child_first_name": "test",
-    //          "child_last_name": "test",
-    //          "age": 3
+
     xhr.addEventListener("readystatechange", function() {
       if(this.readyState === 4 && this.status == 200) {
         result = JSON.parse(this.responseText);
-            var var1 = document.getElementById('applications');
-			var hr = document.createElement("hr");
-			var br = document.createElement("br");
-			
-		var select = document.getElementById("selectDelete");
+            const tableObj = document.getElementById('applications');
 
-        for (let i = 0; i <  result.length;i++){
-	
-         		var1.appendChild(br.cloneNode());
-			var pfn = document.createElement("p");
-				pfn.innerHTML = "parent first name: "+result[i].parent_first_name; 
-				var1.appendChild(pfn);
-				
-			var pln = document.createElement("p");
-				pln.innerHTML = "parent last name: "+result[i].parent_last_name; 
-				var1.appendChild(pln);
+		const select = document.getElementById("selectDelete");
 
 
-			var ii = document.createElement("p");
-				ii.innerHTML = "income: "+result[i].income; 
-				var1.appendChild(ii);
-				
-				
-				
-			var cfn = document.createElement("p");
-				cfn.innerHTML = "child first name: "+result[i].child_first_name; 
-				var1.appendChild(cfn);
-				
-				
-			var cln = document.createElement("p");
-				cln.innerHTML = "child last name: "+result[i].child_last_name; 
-				var1.appendChild(cln);
-				
-				
-			var a = document.createElement("p");
-				a.innerHTML = "age: "+result[i].age; 
-				var1.appendChild(a);
-				
-				
-			var option = document.createElement("option");
-			option.text = result[i].child_last_name +", "+result[i].child_first_name;
-			select.add(option);	
-                    
-        }
-         		var1.appendChild(br.cloneNode());
+
+		  let vari = result._embedded.applications;
+		  vari.forEach(obj => {
+
+
+			  const newRow = document.createElement("tr");
+
+			  const rowElementParentFirstName = document.createElement("td");
+			  const rowElementParentLastName = document.createElement("td");
+			  const rowDataParentFirstName = document.createTextNode(obj.parentFirstName);
+			  const rowDataParentLastName = document.createTextNode(obj.parentLastName);
+			  rowElementParentFirstName.appendChild(rowDataParentFirstName);
+			  rowElementParentLastName.appendChild(rowDataParentLastName);
+
+			  newRow.appendChild(rowElementParentFirstName);
+			  newRow.appendChild(rowElementParentLastName);
+
+
+			  const rowElementIncome = document.createElement("td");
+			  const rowDataIncome = document.createTextNode(obj.income);
+			  rowElementIncome.appendChild(rowDataIncome);
+
+			  newRow.appendChild(rowElementIncome);
+
+			  const rowElementChildFirstName = document.createElement("td");
+			  const rowElementChildLastName = document.createElement("td");
+			  const rowDataChildFirstName = document.createTextNode(obj.childFirstName);
+			  const rowDataChildLastName = document.createTextNode(obj.childLastName);
+			  rowElementChildFirstName.appendChild(rowDataChildFirstName);
+			  rowElementChildLastName.appendChild(rowDataChildLastName);
+
+			  newRow.appendChild(rowElementChildFirstName);
+			  newRow.appendChild(rowElementChildLastName);
+
+
+			  const rowElementAge = document.createElement("td");
+			  const rowDataAge = document.createTextNode(obj.age);
+			  rowElementAge.appendChild(rowDataAge);
+
+			  newRow.appendChild(rowElementAge);
+
+			  tableObj.appendChild(newRow);
+
+			const option = document.createElement("option");
+			option.text = obj.childLastName +", "+obj.childFirstName;
+			select.add(option);
+
+		  });
 
       }
     });
     
-xhr.open("GET", "http://localhost:8080/backSystem/api/applications");
+	xhr.open("GET", "http://localhost:8080/api/applications");
     
     xhr.send(data);
+
+    showTeachers();
 }
 
 function deleteRequest(id){
-	    var data = "";
+	    let data = "";
 
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function() {
       if(this.readyState === 4 && this.status == 200) {
         result = JSON.parse(this.responseText);
 		}
 	});
-	xhr.open("DELETE", "http://localhost:8080/backSystem/api/applications/"+id);
+	xhr.open("DELETE", "http://localhost:8080/api/applications/"+id);
     
     xhr.send(data);
 }
 
 function deleteApplication(){
-	
-	var selection = document.getElementById("selectDelete");
-	var selectionArray = selection.value.split(", ");
-	for (let i = 0; i <  result.length;i++){
-		if(result[i].child_first_name == selectionArray[1] && result[i].child_last_name == selectionArray[0]){
+
+
+	let vari = result._embedded.applications;
+	const selection = document.getElementById("selectDelete");
+	const selectionArray = selection.value.split(", ");
+	vari.forEach(obj => {
+		if(obj.childFirstName == selectionArray[1] && obj.childLastName == selectionArray[0]){
 		//	alert(result[i].income);
-			deleteRequest(result[i].id);
-			break;
+			deleteRequest(obj.id);
+			return;
+		}
+	});
+	
+}
+
+
+function showTeachers(){
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET','http://localhost:8080/api/teachers/');
+	xhr.send();
+	xhr.onreadystatechange = ()=> {
+		if (xhr.readyState == 4){
+			if (xhr.status == 200){
+				const parsed = 	JSON.parse(xhr.responseText);
+				let vari = parsed._embedded.teachers;
+				vari.forEach(obj => {
+					console.log(obj.username)
+					const tableObj = document.getElementById("teachers");
+					const newRow = document.createElement("tr");
+					const rowElementUsername = document.createElement("td");
+					const rowElementAuthority = document.createElement("td");
+					const rowDataUsername = document.createTextNode(obj.username);
+					const rowDataAuthority = document.createTextNode(obj.classN);
+					rowElementUsername.appendChild(rowDataUsername);
+					rowElementAuthority.appendChild(rowDataAuthority);
+					newRow.appendChild(rowElementUsername);
+					newRow.appendChild(rowElementAuthority)
+					tableObj.appendChild(newRow);
+				});
+			}
 		}
 	}
-	
 }
 
 
