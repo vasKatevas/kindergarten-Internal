@@ -11,10 +11,7 @@ function isNumber(){
 		text = "Input not valid";
 		alert(text);
 		return false;
-	} else {
-		text = "Input OK";
 	}
-	alert(text);
 }
 
 function myCreateElement(name){
@@ -26,40 +23,7 @@ function myCreateElement(name){
 	return element;
 }
 
-function firstNameLastName(){
 
-	const br = document.createElement("br");
-	br.setAttribute("id", "brrr");
-
-	const form = document.getElementById("registerForm");
-
-
-	const FirstNamelabel = document.createElement("label");
-	FirstNamelabel.setAttribute("for", "firstname");
-
-
-
-	const FirstName = myCreateElement("firstname");
-
-	form.appendChild(FirstNamelabel);
-	FirstNamelabel.innerHTML = "First Name:"; 
-	form.appendChild(br.cloneNode());  
-	form.appendChild(FirstName);
-	form.appendChild(br.cloneNode());  
-
-
-
-	const LastNamelabel = document.createElement("label");
-	LastNamelabel.setAttribute("for","lastname");
-
-	const LastName = myCreateElement("lastname");
-	form.appendChild(LastNamelabel);
-	LastNamelabel.innerHTML = "Last Name:"; 
-	form.appendChild(br.cloneNode());  
-	form.appendChild(LastName);
-	form.appendChild(br.cloneNode());  
-
-}
 
 function yesnoCheck(that) {
 	const br = document.createElement("br");
@@ -69,7 +33,7 @@ function yesnoCheck(that) {
 
 
 
-	if (form.childNodes.length > 20  || form.childNodes.length == 13 ) {
+	if (form.childNodes.length > 16  || form.childNodes.length == 13 ) {
 		while (form.firstChild) {
 			form.removeChild(form.lastChild);
 		}
@@ -132,7 +96,6 @@ function yesnoCheck(that) {
 			form.appendChild(br.cloneNode());
 
 
-			firstNameLastName();
 
 		}else if (that.value == "teacher") {
 
@@ -153,7 +116,6 @@ function yesnoCheck(that) {
 			form.appendChild(br.cloneNode());
 
 
-			firstNameLastName();
 
 			const classlabel = document.createElement("label");
 			classlabel.setAttribute("for","class");
@@ -189,8 +151,7 @@ function yesnoCheck(that) {
 
 	}else{
 		if (that.value == "teacher"){
-			firstNameLastName();
-			
+
 			const classlabel = document.createElement("label");
 			classlabel.setAttribute("for","class");
 
@@ -203,12 +164,9 @@ function yesnoCheck(that) {
 			form.appendChild(classN);
 			form.appendChild(br.cloneNode());
 			
-		}else if (that.value == "manager"){
-			firstNameLastName();	
-		
 		}
 	}
-	var registerForm = document.createElement("input");
+	const registerForm = document.createElement("input");
 	registerForm.setAttribute("type", "submit");
 	registerForm.setAttribute("value", "Register");
 	registerForm.setAttribute("id", "registerbutton");
@@ -227,9 +185,6 @@ window.onload = function showUsers(){
 				const parsed = 	JSON.parse(xhr.responseText);
 				let vari = parsed._embedded.authoritieses;
 			    vari.forEach(obj => {
-				/*	Object.entries(obj).forEach(([key, value]) => {
-						console.log(`${key} ${value}`);
-					});*/
 					console.log(obj.username)
 					const tableObj = document.getElementById("Users");
 					const newRow = document.createElement("tr");
@@ -245,8 +200,6 @@ window.onload = function showUsers(){
 
 					console.log('-------------------');
 				});
-		//		const parsed = 	JSON.parse(xhr.responseText);
-		//		console.log(parsed.username);
 			}
 		}
 	}

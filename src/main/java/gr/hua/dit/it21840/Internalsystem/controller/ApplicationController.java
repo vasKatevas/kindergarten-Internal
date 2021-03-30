@@ -39,11 +39,9 @@ public class ApplicationController{
 
     }
 
-  //  https://stackoverflow.com/questions/33796218/content-type-application-x-www-form-urlencodedcharset-utf-8-not-supported-for
-  // https://stackoverflow.com/questions/31935819/issue-with-restcontroller-and-application-x-www-form-urlencodedcharset-utf-8-me
 
 
-  //  @Secured("ROLE_EXTERNAL")
+    @Secured("ROLE_EXTERNAL")
     @RequestMapping(value = "/applications", method = RequestMethod.POST,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<String> addApplication( @RequestParam MultiValueMap<String,String> paramMap) throws Exception{
        // applicationRepo.save(application);

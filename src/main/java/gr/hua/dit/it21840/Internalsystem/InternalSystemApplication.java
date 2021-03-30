@@ -21,13 +21,6 @@ public class InternalSystemApplication implements WebMvcConfigurer {
 		SpringApplication.run(InternalSystemApplication.class, args);
 	}
 
-	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		FormHttpMessageConverter converter = new FormHttpMessageConverter();
-		MediaType mediaType = new MediaType("application","x-www-form-urlencoded", Charset.forName("UTF-8"));
-		converter.setSupportedMediaTypes(Arrays.asList(mediaType));
-		converters.add(converter);
-	}
 
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
