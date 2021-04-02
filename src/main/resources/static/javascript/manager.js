@@ -95,7 +95,6 @@ function deleteApplication(){
 	const selectionArray = selection.value.split(", ");
 	vari.forEach(obj => {
 		if(obj.childFirstName == selectionArray[1] && obj.childLastName == selectionArray[0]){
-		//	alert(result[i].income);
 			deleteRequest(obj.id);
 			return;
 		}
@@ -114,7 +113,6 @@ function showTeachers(){
 				const parsed = 	JSON.parse(xhr.responseText);
 				let vari = parsed._embedded.teachers;
 				vari.forEach(obj => {
-					console.log(obj.username)
 					const tableObj = document.getElementById("teachers");
 					const newRow = document.createElement("tr");
 					const rowElementUsername = document.createElement("td");
@@ -132,5 +130,17 @@ function showTeachers(){
 	}
 }
 
+document.addEventListener('DOMContentLoaded', () =>{
+	document.getElementById('registerChild').addEventListener('click', () => {
+		const child = {
+			"firstname": document.getElementById('Cfirstname').value,
+			"lastname": document.getElementById('Clastname').value,
+			"classN": document.getElementById('Cclass').value
+		}
 
-
+		const xhr = new XMLHttpRequest();
+		xhr.open('POST','http://localhost:8080/api/children/');
+		xhr.setRequestHeader('Content-Type','application/json')
+		xhr.send(JSON.stringify(child));
+	});
+}, false);
