@@ -65,7 +65,7 @@ function getRequest(){
       }
     });
     
-	xhr.open("GET", "http://localhost:8080/api/applications");
+	xhr.open("GET", "api/applications");
     
     xhr.send(data);
 
@@ -82,7 +82,7 @@ function deleteRequest(id){
         result = JSON.parse(this.responseText);
 		}
 	});
-	xhr.open("DELETE", "http://localhost:8080/api/applications/"+id);
+	xhr.open("DELETE", "api/applications/"+id);
     
     xhr.send(data);
 }
@@ -105,7 +105,7 @@ function deleteApplication(){
 
 function showTeachers(){
 	const xhr = new XMLHttpRequest();
-	xhr.open('GET','http://localhost:8080/api/teachers/');
+	xhr.open('GET','api/teachers/');
 	xhr.send();
 	xhr.onreadystatechange = ()=> {
 		if (xhr.readyState == 4){
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 		}
 
 		const xhr = new XMLHttpRequest();
-		xhr.open('POST','http://localhost:8080/api/children/');
+		xhr.open('POST','api/children/');
 		xhr.setRequestHeader('Content-Type','application/json')
 		xhr.send(JSON.stringify(child));
 	});

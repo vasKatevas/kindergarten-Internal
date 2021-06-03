@@ -177,7 +177,7 @@ function yesnoCheck(that) {
 
 window.onload = function showUsers(){
 	const xhr = new XMLHttpRequest();
-	xhr.open('GET','http://localhost:8080/api/authorities/');
+	xhr.open('GET','api/authorities/');
 	xhr.send();
 	xhr.onreadystatechange = ()=> {
 		if (xhr.readyState == 4){

@@ -1,6 +1,6 @@
 function showChildren(classN) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET','http://localhost:8080/api/children/search/getChildByClassN?classN='+classN);
+    xhr.open('GET','api/children/search/getChildByClassN?classN='+classN);
     xhr.send();
     xhr.onreadystatechange = ()=> {
         if (xhr.readyState == 4) {
