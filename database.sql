@@ -59,16 +59,16 @@ CREATE TABLE IF NOT EXISTS `application` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-INSERT INTO `user` (`username`, `password`, `enabled`) VALUES
+INSERT IGNORE INTO `user` (`username`, `password`, `enabled`) VALUES
     ('admin', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1);
 
-INSERT INTO `authorities` (`username`, `authority`) VALUES
+INSERT IGNORE INTO `authorities` (`username`, `authority`) VALUES
     ('admin', 'ROLE_ADMIN');
 
-INSERT INTO `user` (`username`, `password`, `enabled`) VALUES
+INSERT IGNORE INTO `user` (`username`, `password`, `enabled`) VALUES
     ('external', '$2a$04$DR/f..s1siWJc8Xg3eJgpeB28a4V6kYpnkMPeOuq4rLQ42mJUYFGC', 1);
 
-INSERT INTO `authorities` (`username`, `authority`) VALUES
+INSERT IGNORE INTO `authorities` (`username`, `authority`) VALUES
     ('external', 'ROLE_EXTERNAL');
 
 
