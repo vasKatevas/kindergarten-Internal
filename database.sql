@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `child` (
   CONSTRAINT `child_ibfk_1` FOREIGN KEY (`classroom`) REFERENCES `teacher` (`class`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF `NOT EXISTS application` (
+CREATE TABLE IF NOT EXISTS `application` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `parent_first_name` varchar(30) NOT NULL,
   `parent_last_name` varchar(30) NOT NULL,
