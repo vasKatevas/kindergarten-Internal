@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `authorities` (
 
 
 
-create table `user_information` (
+create table IF NOT EXISTS `user_information` (
 `username` varchar(50) not null,
 `firstName` varchar(50) not null,
 `lastName` varchar(50) not null,
@@ -27,7 +27,7 @@ foreign key (username) references user(username)  ON UPDATE CASCADE ON DELETE CA
 
 
 
-CREATE TABLE `teacher` (
+CREATE TABLE IF NOT EXISTS `teacher` (
   `username` varchar(50) NOT NULL,
   `class` int(10) DEFAULT NULL,
   PRIMARY KEY (`username`),
@@ -38,7 +38,7 @@ ON DELETE CASCADE ON UPDATE CASCADE
 
 
 
-CREATE TABLE `child` (
+CREATE TABLE NOT EXISTS `child` (
   `id` int(11) auto_increment NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE `child` (
   CONSTRAINT `child_ibfk_1` FOREIGN KEY (`classroom`) REFERENCES `teacher` (`class`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `application` (
+CREATE TABLE `NOT EXISTS application` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `parent_first_name` varchar(30) NOT NULL,
   `parent_last_name` varchar(30) NOT NULL,
