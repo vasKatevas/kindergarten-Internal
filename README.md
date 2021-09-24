@@ -1,5 +1,9 @@
 # kindergarten internal system  
 
+## Website Screenshot
+
+![manager enviroment](/images/manager.png "manager enviroment")
+
 ## Requirements
 
  - java 11
